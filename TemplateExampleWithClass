@@ -1,0 +1,36 @@
+import { MOVIES } from './movie';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <h1>{{title}}</h1>
+    My Favourite movie is : {{myMovie.name}}
+
+    <ul *ngFor="let movie of movies" >
+         <li> {{movie.name}} </li>
+    </ul>
+  `,
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'My First App';
+  movies = MOVIES;
+  myMovie = this.movies[0];
+}
+
+
+// movie.ts 
+
+export class Movie {
+  id: number;
+  name: string;
+  type: string;
+  rating: number;
+}
+
+export const MOVIES = [
+ {  id: 1, name: 'Swades', type: 'Drama', rating: 7 },
+ {  id: 2, name: 'Lagaan', type: 'Drama', rating: 8 },
+ {  id: 3, name: 'Gold', type: 'History', rating: 9 }
+];
