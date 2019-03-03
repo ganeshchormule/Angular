@@ -1,0 +1,18 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <h1>{{title}}</h1>
+    My Favourite movie is : {{myMovie}}
+    <ul *ngFor="let movie of movies" >
+         <li> {{movie}} </li>
+    </ul>
+  `,
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'My First App';
+  movies = ['Swades', 'Lagaan', 'ABCD'];
+  myMovie = this.movies[0];
+}
