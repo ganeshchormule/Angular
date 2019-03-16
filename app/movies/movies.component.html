@@ -1,0 +1,7 @@
+<h2>List Of Movies</h2>
+
+<ul *ngFor="let movie of (movies|bestMoviesImpure)">
+    <li> {{movie.name}} </li>
+</ul>
+
+<button class="btn btn-primary" (click)="addMovie()"> Add New Movie </button>
