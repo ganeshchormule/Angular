@@ -1,0 +1,106 @@
+1. Create new component
+
+2. Update Template HTML file with html content
+
+3. Form element need <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    FormGroup directive need to provide explicitly
+	
+**************************************************	
+
+4. <input id="firstName" type="text" class="form-control" formControlName="firstName">
+
+formControlName must need to set here
+
+
+**********************************************
+5. Component code:
+
+
+export class ReactformComponent implements OnInit {
+
+  registerForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
+
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', Validators.required],
+    });
+  }
+
+  get firstName() {
+    return this.registerForm.get('firstName');
+  }
+  
+ 
+FormBuilder has advantages 
+  
+******************************************
+
+
+6. Display values as :
+
+
+ {{registerForm.value | json}} <br/>
+
+ Name:   {{registerForm.value.firstName}}
+ 
+*****************************************
+
+7. Show Alert as :
+
+
+<div class="alert alert-danger" *ngIf="firstName.touched && firstName.errors?.required">
+          First Name should not be empty</div>
+		  
+****************************************
+
+8. Difference between setValue and PatchValue
+
+updateProfile() {
+        this.registerForm.patchValue({ firstName : 'ABC' });
+       // this.registerForm.setValue({firstName: 'Ganesh'});
+  }		  
+		  
+**************************************
+
+9. Use FormArray to create Dyanmic Elements:
+
+ ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', Validators.required],
+      contacts: this.formBuilder.array([])
+    });
+  }
+  
+  ===============
+
+  get contacts() {
+    return this.registerForm.get('contacts') as FormArray;
+  }
+
+  addContact() {
+    this.contacts.push(this.formBuilder.control(''));
+  }
+
+  **************************************
+  
+10. HTML code to show dynamic array
+
+    <div class="form-group" formArrayName="contacts">
+        <button class="btn btn-primary" (click)="addContact()">Add Contact</button>
+        <div *ngFor="let contact of contacts.controls; let i=index">
+            <label for="">Contact-{{i+1}}</label>
+            <input type="text" class="form-control" [formControlName]="i">
+        </div>
+    </div>  
+  
+  
+
+  
+
+
+  

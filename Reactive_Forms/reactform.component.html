@@ -1,0 +1,36 @@
+
+Reactive Form Example:
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+       <label for="firstName">First Name</label>
+       <input id="firstName" type="text" class="form-control" formControlName="firstName">
+       <div class="alert alert-danger" *ngIf="firstName.touched && firstName.errors?.required">
+          First Name should not be empty</div>
+      <div class="alert alert-danger" *ngIf="firstName.touched && firstName.errors?.minlength">
+              First Name should be minimum 3 characters</div>
+    </div>
+    <div class="form-group">
+       <label for="lastName">Last Name</label>
+       <input id="lastName" type="text" class="form-control"  formControlName="lastName">
+    </div>
+
+    <div class="form-group" formArrayName="contacts">
+        <button class="btn btn-primary" (click)="addContact()">Add Contact</button>
+        <div *ngFor="let contact of contacts.controls; let i=index">
+            <label for="">Contact-{{i+1}}</label>
+            <input type="text" class="form-control" [formControlName]="i">
+
+        </div>
+
+    </div>
+    <button class="btn btn-primary">Submit</button>
+
+ </form>
+ <hr>
+ {{registerForm.value | json}} <br/>
+ Name:   {{registerForm.value?.firstName}}
+ <hr>
+
+  <p>
+    <button (click)="updateProfile()">Update Profile</button>
+  </p>
